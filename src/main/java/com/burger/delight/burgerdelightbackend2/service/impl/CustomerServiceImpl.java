@@ -26,20 +26,23 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public String addCustomer(CustomerDTO customer) {
         try {
-            if(customerRepo.existsById(String.valueOf(customer.getId()))){
+            if(customerRepo.existsById(customer.getId())){
+                System.out.println("Customer id in duplicate : " + customer.getId());
+                System.out.println("Customer already exists");
                 return ResponseList.RSP_DUPLICATE;
+            }else {
+                System.out.println("Customer id in success : " + customer.getId());
+                customerRepo.save(modelMapper.map(customer, Customer.class));
+                return ResponseList.RSP_SUCCESS;
             }
-            customerRepo.save(modelMapper.map(customer, Customer.class));
-            return ResponseList.RSP_SUCCESS;
         } catch (Exception e) {
             return ResponseList.RSP_FAILURE;
         }
     }
-
     @Override
     public String updateCustomer(CustomerDTO customer) {
         try{
-            if( !(customerRepo.existsById(String.valueOf(customer.getId()))) ){
+            if( !(customerRepo.existsById(customer.getId())) ){
                 return ResponseList.RSP_NOT_FOUND;
             }
             customerRepo.save(modelMapper.map(customer, Customer.class));
@@ -52,10 +55,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public String deleteCustomer(int id) {
         try{
-            if( !(customerRepo.existsById(String.valueOf(id))) ){
+            if( !(customerRepo.existsById(id) )){
                 return ResponseList.RSP_NOT_FOUND;
             }
-            customerRepo.deleteById(String.valueOf(id));
+            customerRepo.deleteById(id);
             return ResponseList.RSP_SUCCESS;
         } catch (Exception e) {
             return ResponseList.RSP_FAILURE;
@@ -65,10 +68,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDTO getCustomer(int id) {
         try {
-            if( !(customerRepo.existsById(String.valueOf(id))) ){
+            if( !(customerRepo.existsById(id) )){
                 return null;
             }
-            return modelMapper.map(customerRepo.findById(String.valueOf(id)).get(), CustomerDTO.class);
+            return modelMapper.map(customerRepo.findById(id).get(), CustomerDTO.class);
         }
         catch (Exception e) {
             return null;

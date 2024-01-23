@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface OrderRepo extends MongoRepository<Orders, String> {
+public interface OrderRepo extends MongoRepository<Orders, Integer> {
 }

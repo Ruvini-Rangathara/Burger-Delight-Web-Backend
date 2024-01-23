@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface FoodRepo extends MongoRepository<Food, String> {
+public interface FoodRepo extends MongoRepository<Food, Integer> {
 }

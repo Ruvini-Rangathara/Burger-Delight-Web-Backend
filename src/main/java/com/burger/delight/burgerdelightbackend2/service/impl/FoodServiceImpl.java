@@ -27,11 +27,12 @@ public class FoodServiceImpl implements FoodService{
     @Override
     public String addFood(FoodDTO food) {
           try {
-              if(foodRepo.existsById(String.valueOf(food.getId()))) {
+              if(foodRepo.existsById(food.getId())) {
                   return ResponseList.RSP_DUPLICATE;
+              }else {
+                    foodRepo.save(modelMapper.map(food, Food.class));
+                    return ResponseList.RSP_SUCCESS;
               }
-                foodRepo.save(modelMapper.map(food, Food.class));
-                return ResponseList.RSP_SUCCESS;
           }catch (Exception e){
               return ResponseList.RSP_FAILURE;
           }
@@ -40,7 +41,7 @@ public class FoodServiceImpl implements FoodService{
     @Override
     public String updateFood(FoodDTO food) {
         try {
-            if(!foodRepo.existsById(String.valueOf(food.getId()))) {
+            if(!foodRepo.existsById(food.getId())) {
                 return ResponseList.RSP_NOT_FOUND;
             }
             foodRepo.save(modelMapper.map(food, Food.class));
@@ -53,10 +54,10 @@ public class FoodServiceImpl implements FoodService{
     @Override
     public String deleteFood(int id) {
         try {
-            if(!foodRepo.existsById(String.valueOf(id))) {
+            if(!foodRepo.existsById(id)) {
                 return ResponseList.RSP_NOT_FOUND;
             }
-            foodRepo.deleteById(String.valueOf(id));
+            foodRepo.deleteById(id);
             return ResponseList.RSP_SUCCESS;
         }catch (Exception e) {
             return ResponseList.RSP_FAILURE;
@@ -66,10 +67,10 @@ public class FoodServiceImpl implements FoodService{
     @Override
     public FoodDTO getFood(int id) {
         try{
-            if(!foodRepo.existsById(String.valueOf(id))) {
+            if(!foodRepo.existsById(id)) {
                 return null;
             }
-            Food food = foodRepo.findById(String.valueOf(id)).get();
+            Food food = foodRepo.findById(id).get();
             return modelMapper.map(food, FoodDTO.class);
         }catch (Exception e) {
             return null;

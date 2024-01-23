@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * Created: 2024-01-23 12.40
  */
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:63342")
 @RestController
 @RequestMapping(value = "/api/v1/customer")
 @RequiredArgsConstructor
@@ -140,11 +140,13 @@ public class CustomerController {
     public ResponseEntity<ResponseDTO> getNewId() {
         int id = customerService.getNewCustomerId();
 
+        System.out.println("New id: " + id);
         responseDTO.setCode(ResponseList.RSP_SUCCESS);
         responseDTO.setMessage("New id retrieved successfully");
         responseDTO.setContent(id);
         return new ResponseEntity<>(responseDTO, org.springframework.http.HttpStatus.OK);
     }
+
 
 
 
