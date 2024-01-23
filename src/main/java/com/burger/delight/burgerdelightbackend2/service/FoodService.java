@@ -1,4 +1,5 @@
 package com.burger.delight.burgerdelightbackend2.service;
+import com.burger.delight.burgerdelightbackend2.dto.FoodDTO;
 
 /**
  * Author: ruu
@@ -6,4 +7,10 @@ package com.burger.delight.burgerdelightbackend2.service;
  */
 
 public interface FoodService {
+    String addFood(FoodDTO food);
+    String updateFood(FoodDTO food);
+    String deleteFood(int id);
+    FoodDTO getFood(int id);
+    FoodDTO[] getAllFoods();
+    int getNewFoodId();
 }
