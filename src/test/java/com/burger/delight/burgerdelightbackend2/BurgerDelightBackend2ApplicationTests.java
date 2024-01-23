@@ -1,0 +1,13 @@
+package com.burger.delight.burgerdelightbackend2;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class BurgerDelightBackend2ApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}
