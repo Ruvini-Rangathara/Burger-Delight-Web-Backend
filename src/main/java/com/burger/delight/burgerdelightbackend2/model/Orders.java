@@ -20,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Document
-public class Order {
+public class Orders {
     private int id;
     private Date date;
     private Double total;
