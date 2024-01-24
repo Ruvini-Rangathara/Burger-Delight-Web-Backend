@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+
 /**
  * Author: ruu
  * Created: 2024-01-23 12.40
@@ -33,6 +35,7 @@ public class FoodController {
             responseDTO.setCode(ResponseList.RSP_SUCCESS);
             responseDTO.setMessage("Food saved successfully");
             responseDTO.setContent(foodDTO);
+            System.out.println("Food saved successfully");
             return new ResponseEntity<>(responseDTO, org.springframework.http.HttpStatus.OK);
 
         } else if (result.equals("03")) {
@@ -127,7 +130,11 @@ public class FoodController {
     public ResponseEntity<ResponseDTO> getFoodByCategory(@PathVariable String category) {
         responseDTO.setCode(ResponseList.RSP_SUCCESS);
         responseDTO.setMessage("Food retrieved successfully");
-        responseDTO.setContent(foodService.getFoodByCategory(category));
+        FoodDTO[] foodByCategory = foodService.getFoodByCategory(category);
+
+        System.out.println("Food by category: " + Arrays.toString(foodByCategory));
+
+        responseDTO.setContent(foodByCategory);
         return new ResponseEntity<>(responseDTO, org.springframework.http.HttpStatus.OK);
     }
 

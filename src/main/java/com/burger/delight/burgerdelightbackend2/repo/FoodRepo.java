@@ -14,6 +14,7 @@ import java.util.List;
 
 @Repository
 public interface FoodRepo extends MongoRepository<Food, Integer> {
-    @Query(value = "{'category': ?1}")
-    List<Food> findByCategory(String category);
+
+    @Query(value = "{'category': ?0}")
+    Food[] findByCategory(String category);
 }

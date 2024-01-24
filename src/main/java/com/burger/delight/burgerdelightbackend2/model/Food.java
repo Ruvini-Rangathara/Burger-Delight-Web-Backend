@@ -18,7 +18,7 @@ public class Food {
     private int id;
     private String name;
     private String description;
-    private String price;
+    private double price;
     private String image;
     private String category;
 }
