@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -92,6 +93,15 @@ public class FoodServiceImpl implements FoodService{
             return foodRepo.findAll().size() + 1;
         }catch (Exception e) {
             return 0;
+        }
+    }
+
+    @Override
+    public FoodDTO[] getFoodByCategory(String category) {
+        try{
+            return modelMapper.map(foodRepo.findByCategory(category), FoodDTO[].class);
+        }catch (Exception e) {
+            return null;
         }
     }
 }
