@@ -22,5 +22,6 @@ public class OrderDTO {
     private Date date;
     private Double total;
     private int customerId;
+    private String status;
     private List<OrderedFoodDTO> list = new ArrayList<>();
 }

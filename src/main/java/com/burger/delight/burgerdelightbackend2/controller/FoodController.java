@@ -120,10 +120,21 @@ public class FoodController {
 
     @GetMapping("/getAll")
     public ResponseEntity<ResponseDTO> getAllFood() {
-        responseDTO.setCode(ResponseList.RSP_SUCCESS);
-        responseDTO.setMessage("Food retrieved successfully");
-        responseDTO.setContent(foodService.getAllFoods());
-        return new ResponseEntity<>(responseDTO, org.springframework.http.HttpStatus.OK);
+        FoodDTO[] foodDTOS = foodService.getAllFoods();
+        System.out.println("FoodDTOS: " + Arrays.toString(foodDTOS));
+
+        if (foodDTOS.length != 0) {
+            responseDTO.setCode(ResponseList.RSP_SUCCESS);
+            responseDTO.setMessage("Foods retrieved successfully");
+            responseDTO.setContent(foodDTOS);
+            return new ResponseEntity<>(responseDTO, org.springframework.http.HttpStatus.OK);
+
+        } else {
+            responseDTO.setCode(ResponseList.RSP_NOT_FOUND);
+            responseDTO.setMessage("Food not found");
+            responseDTO.setContent(null);
+            return new ResponseEntity<>(responseDTO, org.springframework.http.HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/getByCategory/{category}")
@@ -141,11 +152,11 @@ public class FoodController {
     @GetMapping("/getNewId")
     public ResponseEntity<ResponseDTO> getNewId() {
         int id = foodService.getNewFoodId();
-
-        System.out.println("New id: " + id);
         responseDTO.setCode(ResponseList.RSP_SUCCESS);
         responseDTO.setMessage("New id retrieved successfully");
         responseDTO.setContent(id);
         return new ResponseEntity<>(responseDTO, org.springframework.http.HttpStatus.OK);
     }
+
+
 }

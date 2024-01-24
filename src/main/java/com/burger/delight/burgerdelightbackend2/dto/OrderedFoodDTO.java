@@ -14,5 +14,5 @@ import lombok.NoArgsConstructor;
 @Data
 public class OrderedFoodDTO {
     private int foodId;
-    private int amount;
+    private int qty;
 }

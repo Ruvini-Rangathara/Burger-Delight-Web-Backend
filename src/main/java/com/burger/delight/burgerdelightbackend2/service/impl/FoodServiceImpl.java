@@ -1,4 +1,5 @@
 package com.burger.delight.burgerdelightbackend2.service.impl;
+import com.burger.delight.burgerdelightbackend2.dto.CustomerDTO;
 import com.burger.delight.burgerdelightbackend2.dto.FoodDTO;
 import com.burger.delight.burgerdelightbackend2.model.Food;
 import com.burger.delight.burgerdelightbackend2.repo.FoodRepo;
@@ -100,12 +101,9 @@ public class FoodServiceImpl implements FoodService{
     @Override
     public FoodDTO[] getFoodByCategory(String category) {
         try{
-            System.out.println("Food by category in service : " + category);
-            FoodDTO[] map = modelMapper.map(foodRepo.findByCategory(category), FoodDTO[].class);
-            System.out.println("Food by category in service : " + Arrays.toString(map));
-            return map;
-
-        }catch (Exception e) {
+            return modelMapper.map(foodRepo.findAll(), FoodDTO[].class);
+        }
+        catch (Exception e) {
             return null;
         }
     }

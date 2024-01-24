@@ -130,7 +130,7 @@ public class CustomerController {
         } else {
             responseDTO.setCode(ResponseList.RSP_NOT_FOUND);
             responseDTO.setMessage("Customers not found");
-            responseDTO.setContent(customerDTOs);
+            responseDTO.setContent(null);
             return new ResponseEntity<>(responseDTO, org.springframework.http.HttpStatus.BAD_REQUEST);
         }
     }
@@ -139,8 +139,6 @@ public class CustomerController {
     @GetMapping("/getNewId")
     public ResponseEntity<ResponseDTO> getNewId() {
         int id = customerService.getNewCustomerId();
-
-        System.out.println("New id: " + id);
         responseDTO.setCode(ResponseList.RSP_SUCCESS);
         responseDTO.setMessage("New id retrieved successfully");
         responseDTO.setContent(id);
