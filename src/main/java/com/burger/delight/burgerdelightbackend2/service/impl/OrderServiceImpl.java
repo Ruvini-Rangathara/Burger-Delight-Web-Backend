@@ -39,13 +39,18 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public String updateOrder(OrderDTO order) {
+        System.out.println("OrderServiceImpl.updateOrder");
         try {
             if(!orderRepo.existsById(order.getId())) {
+                System.out.println("OrderServiceImpl.updateOrder: order not found");
                 return ResponseList.RSP_NOT_FOUND;
             }
+            System.out.println("OrderServiceImpl.updateOrder: order found");
+            orderRepo.delete(modelMapper.map(order, Orders.class));
             orderRepo.save(modelMapper.map(order, Orders.class));
             return ResponseList.RSP_SUCCESS;
         }catch (Exception e) {
+            System.out.println("OrderServiceImpl.updateOrder: exception  :"+e.getMessage());
             return ResponseList.RSP_FAILURE;
         }
     }
@@ -79,7 +84,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDTO[] getAllOrders() {
         try {
-            return modelMapper.map(orderRepo.findAll(), OrderDTO[].class);
+            OrderDTO[] map = modelMapper.map(orderRepo.findAll(), OrderDTO[].class);
+            if(map.length == 0) {
+                return null;
+            }
+            return map;
         }catch (Exception e) {
             return null;
         }
@@ -93,4 +102,33 @@ public class OrderServiceImpl implements OrderService {
             return 0;
         }
     }
+
+    @Override
+    public OrderDTO[] getOrdersByCustomerId(int id) {
+        try{
+            return modelMapper.map(orderRepo.findByCustomerId(id), OrderDTO[].class);
+        }catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public OrderDTO[] getOrdersByStatusAndCustomerId(String status, int customerId) {
+        try{
+            return modelMapper.map(orderRepo.findByStatusAndCustomerId(status, customerId), OrderDTO[].class);
+        }catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public boolean existsById(int id) {
+        try{
+            return orderRepo.existsById(id);
+        }catch (Exception e) {
+            return false;
+        }
+    }
+
+
 }

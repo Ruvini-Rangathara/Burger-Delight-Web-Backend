@@ -15,5 +15,7 @@ public interface OrderService {
     OrderDTO getOrder(int id);
     OrderDTO[] getAllOrders();
     int getNewOrderId();
-
+    OrderDTO[] getOrdersByCustomerId(int id);
+    OrderDTO[] getOrdersByStatusAndCustomerId(String status, int customerId);
+    boolean existsById(int id);
 }

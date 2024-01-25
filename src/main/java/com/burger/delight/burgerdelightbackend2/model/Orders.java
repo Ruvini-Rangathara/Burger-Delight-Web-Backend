@@ -22,7 +22,7 @@ import java.util.List;
 @Document
 public class Orders {
     private int id;
-    private Date date;
+    private String date;
     private Double total;
     private int customerId;
     private String status;

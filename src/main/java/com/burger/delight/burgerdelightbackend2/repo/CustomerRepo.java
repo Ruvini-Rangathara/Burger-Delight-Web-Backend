@@ -15,4 +15,6 @@ public interface CustomerRepo extends MongoRepository<Customer, Integer> {
 
     @Query("{'email': ?0, 'password': ?1}")
     Customer findByEmailAndPassword(String email, String password);
+
+    Customer findByEmail(String email);
 }

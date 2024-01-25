@@ -15,4 +15,6 @@ public interface CustomerService {
     CustomerDTO[] getAllCustomers();
     int getNewCustomerId();
     boolean login(String email, String password);
+
+    int getCustomerIdByEmail(String email);
 }

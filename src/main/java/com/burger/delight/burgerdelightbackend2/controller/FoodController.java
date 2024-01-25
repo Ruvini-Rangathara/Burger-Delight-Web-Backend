@@ -121,7 +121,6 @@ public class FoodController {
     @GetMapping("/getAll")
     public ResponseEntity<ResponseDTO> getAllFood() {
         FoodDTO[] foodDTOS = foodService.getAllFoods();
-        System.out.println("FoodDTOS: " + Arrays.toString(foodDTOS));
 
         if (foodDTOS.length != 0) {
             responseDTO.setCode(ResponseList.RSP_SUCCESS);
@@ -142,8 +141,6 @@ public class FoodController {
         responseDTO.setCode(ResponseList.RSP_SUCCESS);
         responseDTO.setMessage("Food retrieved successfully");
         FoodDTO[] foodByCategory = foodService.getFoodByCategory(category);
-
-        System.out.println("Food by category: " + Arrays.toString(foodByCategory));
 
         responseDTO.setContent(foodByCategory);
         return new ResponseEntity<>(responseDTO, org.springframework.http.HttpStatus.OK);

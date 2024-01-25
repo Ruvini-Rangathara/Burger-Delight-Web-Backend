@@ -114,4 +114,17 @@ public class CustomerServiceImpl implements CustomerService {
             return false;
         }
     }
+
+    @Override
+    public int getCustomerIdByEmail(String email) {
+        try{
+           Customer customer = customerRepo.findByEmail(email);
+              if(customer == null){
+                return 0;
+              }
+                return customer.getId();
+        }catch (Exception e) {
+            return 0;
+        }
+    }
 }

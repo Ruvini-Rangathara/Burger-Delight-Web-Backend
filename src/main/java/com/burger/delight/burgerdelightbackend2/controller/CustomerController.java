@@ -27,6 +27,10 @@ public class CustomerController {
 
     @PostMapping("/save")
     public ResponseEntity<ResponseDTO> saveCustomer(@RequestBody CustomerDTO customerDTO) {
+        if(customerDTO.getId() == 0) {
+            customerDTO.setId(customerService.getNewCustomerId());
+        }
+
         String result = customerService.addCustomer(customerDTO);
 
         if (result.equals("00")) {
@@ -151,17 +155,20 @@ public class CustomerController {
         boolean result = customerService.login(email, password);
 
         if (result) {
+            CustomerDTO customer = customerService.getCustomer(customerService.getCustomerIdByEmail(email));
+
             responseDTO.setCode(ResponseList.RSP_SUCCESS);
             responseDTO.setMessage("Login successful");
-            responseDTO.setContent(true);
+            responseDTO.setContent(customer.getId());
             return new ResponseEntity<>(responseDTO, org.springframework.http.HttpStatus.OK);
 
         } else {
             responseDTO.setCode(ResponseList.RSP_NOT_FOUND);
             responseDTO.setMessage("Login failed");
-            responseDTO.setContent(false);
+            responseDTO.setContent(0);
             return new ResponseEntity<>(responseDTO, org.springframework.http.HttpStatus.BAD_REQUEST);
         }
     }
+
 
 }

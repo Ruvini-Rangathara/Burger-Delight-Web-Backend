@@ -19,7 +19,7 @@ import java.util.List;
 @Data
 public class OrderDTO {
     private int id;
-    private Date date;
+    private String date;
     private Double total;
     private int customerId;
     private String status;
