@@ -101,7 +101,7 @@ public class FoodServiceImpl implements FoodService{
     @Override
     public FoodDTO[] getFoodByCategory(String category) {
         try{
-            return modelMapper.map(foodRepo.findAll(), FoodDTO[].class);
+            return modelMapper.map(foodRepo.findByCategory(category), FoodDTO[].class);
         }
         catch (Exception e) {
             return null;

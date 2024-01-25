@@ -146,6 +146,22 @@ public class CustomerController {
     }
 
 
+    @GetMapping("/login/{email}/{password}")
+    public ResponseEntity<ResponseDTO> login(@PathVariable String email, @PathVariable String password) {
+        boolean result = customerService.login(email, password);
 
+        if (result) {
+            responseDTO.setCode(ResponseList.RSP_SUCCESS);
+            responseDTO.setMessage("Login successful");
+            responseDTO.setContent(true);
+            return new ResponseEntity<>(responseDTO, org.springframework.http.HttpStatus.OK);
+
+        } else {
+            responseDTO.setCode(ResponseList.RSP_NOT_FOUND);
+            responseDTO.setMessage("Login failed");
+            responseDTO.setContent(false);
+            return new ResponseEntity<>(responseDTO, org.springframework.http.HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }

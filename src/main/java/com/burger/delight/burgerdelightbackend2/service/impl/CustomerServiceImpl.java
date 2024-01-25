@@ -97,4 +97,21 @@ public class CustomerServiceImpl implements CustomerService {
             return 0;
         }
     }
+
+    @Override
+    public boolean login(String email, String password) {
+
+        try {
+            Customer customer = customerRepo.findByEmailAndPassword(email, password);
+            if(customer == null){
+                System.out.println("Customer not found");
+                return false;
+            }
+            System.out.println("Customer found");
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
 }

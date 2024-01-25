@@ -2,6 +2,7 @@ package com.burger.delight.burgerdelightbackend2.repo;
 
 import com.burger.delight.burgerdelightbackend2.model.Customer;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,4 +12,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CustomerRepo extends MongoRepository<Customer, Integer> {
+
+    @Query("{'email': ?0, 'password': ?1}")
+    Customer findByEmailAndPassword(String email, String password);
 }
